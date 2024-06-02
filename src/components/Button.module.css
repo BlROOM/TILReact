@@ -1,0 +1,57 @@
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32;
+  text-align: center;
+  text-decoration: none;
+  width: 25vh;
+  height: 7vh;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #ed484d;
+}
+
+.active {
+  background-color: #ed484d;
+  color: white;
+}
+
+.btn {
+  background-color: #ccc;
+  border: none;
+  color: white;
+  padding: 15px 32;
+  text-align: center;
+  text-decoration: none;
+  /* display:; */
+  width: 25vh;
+  height: 7vh;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: inter;
+  width: 77px;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 20px 14px;
+}
+
+/* .primary {
+  background-color: #4f4f4f;
+}
+
+.cancle {
+  background-color: #ed4848;
+}
+
+.Success {
+  background-color: #7d48ed;
+} */
