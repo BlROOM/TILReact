@@ -1,23 +1,25 @@
-import { ChangeEvent, useId } from "react";
+import { useId } from "react";
 
 type TCustomCheckBox = {
   children: React.ReactNode;
-  onChange?: () => (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (id : string) => void;
+
   checked: boolean;
+  id: string;
 };
 
-const CustomCheckBox = ({ children, onChange, checked }: TCustomCheckBox) => {
+const CustomCheckBox = ({ children, onChange, checked, id }: TCustomCheckBox) => {
   // const [checkValue, setCheckValue] = useState(false);
   // const random = Math.random.toString();
   const random = useId();
   return (
-    <div className="flex items-center mb-5 align-middle gap-x-2">
+    <div className="flex items-center gap-x-2">
       <input
         type="checkbox"
         checked={checked}
         // onChange={() => setCheckValue(prev => !prev)}
-        // onChange={onChange()}
-        className="w-[20px] h-[20px] appearance-none border rounded-md border-[#4F4F4F] checked:bg-gray-600 ack checked:border-0
+        onChange={() => onChange(id)}
+        className="w-[20px] h-[20px] appearance-none border rounded-md bg-white border-[#4F4F4F] checked:bg-gray-600 checked:border-0
         checked:bg-[url('/images/checkBox.png')] bg-no-repeat bg-center bg-contain
         "
       />

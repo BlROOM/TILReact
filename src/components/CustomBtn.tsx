@@ -7,19 +7,19 @@ type TCustomBtnProps = React.ComponentProps<"button"> & {
     border?: string;
   };
   text?: string;
-  onClick: (text?: string) => void;
+  onClick?: (text?: string) => void;
   isValid: boolean;
 };
 
 const CustomBtn = ({
   text,
-  onClick,
+  // onClick,
   isValid,
   children,
   ...restProps
 }: TCustomBtnProps) => {
   const { style } = restProps;
-  console.log(isValid, "isValid");
+  // console.log(isValid, "isValid");
   return (
     <button
       {...restProps}
@@ -27,7 +27,7 @@ const CustomBtn = ({
       className={
         "flex items-center justify-center px-5 py-4 text-center text-white bg-primary font-inter rounded-md h-[44px] box-border disabled:bg-gray-500 disabled:cursor-not-allowed"
       }
-      onClick={onClick}
+      // onClick={onClick}
       disabled={isValid}
     >
       {text}
