@@ -7,6 +7,7 @@ import { ChangeEvent, useState } from "react";
 // import NavBar from "./components/Navbar";
 import "./index.css";
 import AssignBox from "./pages/AssignPage";
+import Todo from "./pages/Todo";
 // import CheckBox from "./components/CheckBox";
 // import TextBox from "./components/TextBox";
 // import Todo from "./Todo";
@@ -32,7 +33,8 @@ export default function App() {
     // 컴포넌트는 무조건 단방향 위에서 아래로 흐른다.
     //
     <div className="flex flex-col gap-5">
-      <AssignBox />
+      {/* <AssignBox /> */}
+      <Todo />
       {/* <NavBar />
       <Button type={type} disabled={true} name="login-btn">
         login
