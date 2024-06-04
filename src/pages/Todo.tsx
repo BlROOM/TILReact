@@ -1,94 +1,99 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import CustomBtn from "../components/CustomBtn";
 import TodoList from "../components/TodoList";
-import { v4 } from "uuid";
+import { TodoContext } from "../context/TodoContext";
+// import { getDefaultState, reducer } from "../reducers/todoReducer";
+// import { SubmitHandler, useForm } from "react-hook-form";
+// import { SubmitHandler, useForm } from "react-hook-form";
 
-export type TTodo = {
-  id: string;
+export type FormInput = {
   text: string;
-  completed: boolean;
+  // textConfirm: string;
 };
-const Todo = () => {
-  const uuId = v4();
-  const [text, setText] = useState("");
-  const [todos, setTodos] = useState([
-    {
-      id: "1",
-      text: "test",
-      completed: false,
-    },
-    {
-      id: "2",
-      text: "test",
-      completed: false,
-    },
-    {
-      id: "3",
-      text: "test",
-      completed: false,
-    },
-  ]);
 
-  const handleAddTodo = (text: string) => {
-    setTodos(prevTodos => {
-      return [
-        ...prevTodos,
-        {
-          // id: prevTodos.length + 1,
-          id: uuId,
-          text,
-          completed: false,
-        },
-      ];
-    });
-  };
+const Todo = () => {
+  // const {
+  //   register,
+  //   watch,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<FormInput>();
+  const [text, setText] = useState("");
+
+  // const [todos, dispatch] = useReducer(reducer, getDefaultState());
+  const { todos, dispatch } = useContext(TodoContext);
+
+  // const handleAddTodo = (text: string) => {
+  //   // console.log("uuid", uuId);
+  //   setTodos(prevTodos => {
+  //     return [
+  //       ...prevTodos,
+  //       {
+  //         // id: prevTodos.length + 1,
+  //         id: uuId,
+  //         text,
+  //         completed: false,
+  //       },
+  //     ];
+  //   });
+  // };
+
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (text.trim().length === 0 )
-      return alert("공백 문자를 입력할 수 없어요.");
-    handleAddTodo(text);
+    // alert(text.trim().length);
+    if (text.trim().length === 0) return alert("공백 문자를 입력할 수 없어요.");
+    dispatch({ type: "ADD_TODO", payload: text.trim() });
     setText("");
   };
 
-  const onCheckTodoHandelr  = (id: string) => {
-    const findTodoIDX = todos.findIndex((todo) => todo.id === id);
-        if (findTodoIDX !== -1) {
-        const updatedTodo = {
-          ...todos[findTodoIDX],
-          completed: !todos[findTodoIDX].completed
-        };
-        const updatedTodos = [...todos];
-        updatedTodos[findTodoIDX] = updatedTodo;
-        setTodos(updatedTodos);
-      }
-  }
+  // const onSubmitHandler: SubmitHandler<{ text: string }> = () => {
+  //   // e.preventDefault();
+  //   if (text.trim().length === 0) return alert("공백 문자를 입력할 수 없어요.");
+  //   alert(`현재 문자 : ${JSON.stringify(text)}`);
+  //   handleAddTodo(text);
+  //   setText("");
+  // };
 
-  const onDeleteTodoHandelr  = (id: string) => {
-    const updatedTodos = todos.filter(todo => todo.id !== id);
-    // const findTodoIDX = todos.findIndex((todo) => todo.id === id);
-    // console.log(findTodoIDX, '뭐야', todos.splice(findTodoIDX, 1))
-        // if (findTodoIDX !== -1) {
-        // todos.splice(findTodoIDX, 1); 
-        // const updatedTodos = [...todos];
-      // }
-      setTodos(updatedTodos);
+  // const onCheckTodoHandelr = useCallback(
+  //   (id: string) => {
+  //     const findTodoIDX = todos.findIndex(todo => todo.id === id);
+  //     if (findTodoIDX !== -1) {
+  //       const updatedTodo = {
+  //         ...todos[findTodoIDX],
+  //         completed: !todos[findTodoIDX].completed,
+  //       };
+  //       const updatedTodos = [...todos];
+  //       updatedTodos[findTodoIDX] = updatedTodo;
+  //       setTodos(updatedTodos);
+  //     }
+  //   },
+  //   [todos]
+  // );
 
-  }
-
+  // const onDeleteTodoHandelr = useCallback(
+  //   (id: string) => {
+  //     const updatedTodos = todos.filter(todo => todo.id !== id);
+  //     setTodos(updatedTodos);
+  //   },
+  //   [todos]
+  // );
 
   return (
     <section className="gap-y-2 flex flex-col border-2 rounded-lg w-[380px] h-full px-5 py-10 box-border">
       <h1 className="font-bold text-[#4F4F4F] text-xl h-[28px]">
-        Todo List App      
+        Todo List App
       </h1>
       <h4 className="text-[#4F4F4F] text-sm h-[20px]">
-        Please enter your details to continue.    
+        Please enter your details to continue.
       </h4>
       <form
         action=""
         className="flex flex-col gap-4 mt-5"
-        onSubmit={onSubmitHandler}
+        onSubmit={
+          // handleSubmit(onSubmitHandler);
+          onSubmitHandler
+        }
       >
         <div className="flex gap-2">
           <CustomInput
@@ -99,6 +104,7 @@ const Todo = () => {
             placeholder="Enter Todo List"
             value={text}
             name="Todo"
+            // register={register}
           />
           <CustomBtn
             isValid={false}
@@ -107,7 +113,12 @@ const Todo = () => {
             style={{ backgroundColor: "#4F4F4F", color: "#F5F5F5" }}
           />
         </div>
-        <TodoList todos={todos}  handleCheckTodo={onCheckTodoHandelr} handleDeleteTodo={onDeleteTodoHandelr}/>
+        {/* <TodoList
+          todos={todos}
+          handleCheckTodo={onCheckTodoHandelr}
+          handleDeleteTodo={onDeleteTodoHandelr}
+        /> */}
+        <TodoList todos={todos} dispatch={dispatch} />
       </form>
     </section>
   );

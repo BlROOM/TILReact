@@ -1,20 +1,51 @@
 import CustomCheckBox from "./CustomCheckBox";
-import { TTodo } from "../pages/Todo";
+import { Action, TTodo } from "../reducers/todoReducer";
+import React, { useCallback, useMemo } from "react";
 // bg-[rgba(53,56,62)]
 
 type TTodoListItemProps = {
   todo: TTodo;
-  handleCheckTodo:(id: string) => void;
-  handleDeleteTodo:(id: string) => void;
+  dispatch: React.Dispatch<Action>;
+
+  // handleCheckTodo: (id: string) => void;
+  // handleDeleteTodo: (id: string) => void;
 };
-const TodoListItem = ({ todo, handleCheckTodo, handleDeleteTodo }: TTodoListItemProps) => {
+const TodoListItem = ({
+  todo,
+  dispatch,
+}: // handleCheckTodo,
+// handleDeleteTodo,
+TTodoListItemProps) => {
   const { id, text, completed } = todo;
+  console.log("render todolistitem");
+  // const memoHandleCheckTodo = useMemo(() => completed, []);
+  // const callbackHandleCheckTodo = useCallback(() => completed, []);
+  // const memoHandleCheckTodo = useMemo(() => completed, []);
+  // const callbackHandleDeleteTodo = useCallback(() => completed, []);
   return (
-    <li className="flex justify-between w-[325px] h-[44px] box-border px-[15px] py-3 items-center align-middle  rounded-[8px] border border-[#4f4f4f]" style={{backgroundColor : 'rgba(53, 56, 62, 0.1)'}}>
-      <CustomCheckBox checked={completed} onChange={handleCheckTodo} id={id}>
-        <span className={`${completed && "line-through"} text-[14px] h-[24px] font-medium text-center`}>{text}</span>
+    <li
+      className="flex justify-between w-[325px] h-[44px] box-border px-[15px] py-3 items-center align-middle  rounded-[8px] border border-[#4f4f4f]"
+      style={{ backgroundColor: "rgba(53, 56, 62, 0.1)" }}
+    >
+      <CustomCheckBox
+        checked={completed}
+        onChange={() => dispatch({ type: "TOGGLE_TODO", payload: id })}
+        id={id}
+      >
+        <span
+          className={`${
+            completed && "line-through"
+          } text-[14px] h-[24px] font-medium text-center`}
+        >
+          {text}
+        </span>
       </CustomCheckBox>
-      <button type="button" onClick={() => handleDeleteTodo(id)} className="w-6 h-6 rounded-md border p-1 border-[#4f4f4f] flex items-center align-middle justify-content" style={{backgroundColor : 'rgba(53, 56, 62, 0.1)'}}>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "DELETE_TODO", payload: id })}
+        className="w-6 h-6 rounded-md border p-1 border-[#4f4f4f] flex items-center align-middle justify-content"
+        style={{ backgroundColor: "rgba(53, 56, 62, 0.1)" }}
+      >
         <svg
           width="18"
           height="18"
@@ -38,4 +69,4 @@ const TodoListItem = ({ todo, handleCheckTodo, handleDeleteTodo }: TTodoListItem
   );
 };
 
-export default TodoListItem;
+export default React.memo(TodoListItem);

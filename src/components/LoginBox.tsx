@@ -47,7 +47,7 @@ const LoginBox = ({
           className="flex flex-col gap-4 mt-5"
           onSubmit={e => {
             e.preventDefault();
-            console.log(e);
+            // console.log(e);
           }}
         >
           {inputSectionData.map(data => (

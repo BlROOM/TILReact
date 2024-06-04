@@ -1,4 +1,6 @@
 import { ChangeEvent } from "react";
+import { UseFormRegister } from "react-hook-form";
+import { FormInput } from "../pages/Todo";
 
 type TCustomInputProps = React.ComponentProps<"input"> & {
   placeholder: string;
@@ -8,6 +10,7 @@ type TCustomInputProps = React.ComponentProps<"input"> & {
   name: string;
   value: string;
   onChange: () => (e: ChangeEvent<HTMLInputElement>) => void;
+  // register: UseFormRegister<FormInput>;
 };
 
 const CustomInput = ({
@@ -17,7 +20,8 @@ const CustomInput = ({
   name,
   value,
   onChange,
-}: TCustomInputProps) => {
+}: // register,
+TCustomInputProps) => {
   return (
     <input
       id={id}
@@ -28,6 +32,13 @@ const CustomInput = ({
       className="bg-white border w-[325px] h-[44px] border-[#4f4f4f] rounded-[5px] p-4 border-box text-base font-medium placeholder-primary"
       onChange={onChange()}
       required
+      // {...register("text", {
+      //   required: "필수 값입니다.",
+      //   minLength: {
+      //     value: 7,
+      //     message: "최소 7자 이상 입력해 주세요.",
+      //   },
+      // })}
     />
   );
 };

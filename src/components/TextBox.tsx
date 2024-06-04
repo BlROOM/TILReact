@@ -4,7 +4,7 @@ const TextBox = () => {
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const clickHandler = () => {
-    console.log(inputRef);
+    // console.log(inputRef);
     if (value.trim() === "") {
       alert("값을 입력해주세요");
       inputRef?.current?.focus();
