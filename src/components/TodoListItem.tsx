@@ -1,23 +1,27 @@
 import CustomCheckBox from "./CustomCheckBox";
-import { Action, TTodo } from "../reducers/todoReducer";
-import React, { useCallback, useMemo } from "react";
+// import { Action } from "../reducers/todoReducer";
+// import React, { useCallback, useMemo } from "react";
+import React, { useContext } from "react";
+import { TTodo } from "./TodoExam";
+import { TodoContext } from "../context/TodoContext";
 // bg-[rgba(53,56,62)]
 
 type TTodoListItemProps = {
   todo: TTodo;
-  dispatch: React.Dispatch<Action>;
+  // dispatch: React.Dispatch<Action>;
 
   // handleCheckTodo: (id: string) => void;
   // handleDeleteTodo: (id: string) => void;
 };
 const TodoListItem = ({
   todo,
-  dispatch,
-}: // handleCheckTodo,
+}: // dispatch,
+// handleCheckTodo,
 // handleDeleteTodo,
 TTodoListItemProps) => {
   const { id, text, completed } = todo;
-  console.log("render todolistitem");
+  const { todoDeleteDispatch, todoToggleDispatch } = useContext(TodoContext);
+  // console.log("render todolistitem");
   // const memoHandleCheckTodo = useMemo(() => completed, []);
   // const callbackHandleCheckTodo = useCallback(() => completed, []);
   // const memoHandleCheckTodo = useMemo(() => completed, []);
@@ -29,7 +33,8 @@ TTodoListItemProps) => {
     >
       <CustomCheckBox
         checked={completed}
-        onChange={() => dispatch({ type: "TOGGLE_TODO", payload: id })}
+        // onChange={() => dispatch({ type: "TOGGLE_TODO", payload: id })}
+        onChange={() => todoToggleDispatch(id)}
         id={id}
       >
         <span
@@ -42,7 +47,8 @@ TTodoListItemProps) => {
       </CustomCheckBox>
       <button
         type="button"
-        onClick={() => dispatch({ type: "DELETE_TODO", payload: id })}
+        // onClick={() => dispatch({ type: "DELETE_TODO", payload: id })}
+        onClick={() => todoDeleteDispatch(id)}
         className="w-6 h-6 rounded-md border p-1 border-[#4f4f4f] flex items-center align-middle justify-content"
         style={{ backgroundColor: "rgba(53, 56, 62, 0.1)" }}
       >

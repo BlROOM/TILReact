@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import CustomBtn from "../components/CustomBtn";
 import TodoList from "../components/TodoList";
 import { TodoContext } from "../context/TodoContext";
-// import { getDefaultState, reducer } from "../reducers/todoReducer";
-// import { SubmitHandler, useForm } from "react-hook-form";
+// import { TTodo } from "../components/TodoExam";
+// import { axiosAddTodo } from "../axios/todoApi";
 // import { SubmitHandler, useForm } from "react-hook-form";
 
 export type FormInput = {
@@ -19,10 +19,16 @@ const Todo = () => {
   //   handleSubmit,
   //   formState: { errors },
   // } = useForm<FormInput>();
+
+  useEffect(() => {}, []);
   const [text, setText] = useState("");
 
   // const [todos, dispatch] = useReducer(reducer, getDefaultState());
-  const { todos, dispatch } = useContext(TodoContext);
+  const {
+    todos,
+    // dispatch,
+    todoAddDispatch,
+  } = useContext(TodoContext);
 
   // const handleAddTodo = (text: string) => {
   //   // console.log("uuid", uuId);
@@ -39,11 +45,20 @@ const Todo = () => {
   //   });
   // };
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // alert(text.trim().length);
     if (text.trim().length === 0) return alert("공백 문자를 입력할 수 없어요.");
-    dispatch({ type: "ADD_TODO", payload: text.trim() });
+    // 현재 api 통신 이후 성공했다면 newTodo 값을 가져와 dispatch의 인자로 호출
+    // 1. api 통신 이후 성공했다면 새롭게 추가된 todo 값을 response값으로 받아옴
+    // 2. 프론트에서 상태변화를 위한 reducer의 dispatch의 받아온 todo 값 인자로 호출
+    // const response = await axiosAddTodo(text);
+    // if (response?.status === 200) {
+    //   dispatch({
+    //     type: "ADD_TODO",
+    //     payload: response?.data,
+    //   });
+    // }
+    todoAddDispatch(text);
     setText("");
   };
 
@@ -118,7 +133,8 @@ const Todo = () => {
           handleCheckTodo={onCheckTodoHandelr}
           handleDeleteTodo={onDeleteTodoHandelr}
         /> */}
-        <TodoList todos={todos} dispatch={dispatch} />
+        {/* <TodoList todos={todos} dispatch={dispatch} /> */}
+        <TodoList todos={todos} />
       </form>
     </section>
   );
