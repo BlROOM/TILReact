@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+// import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import CustomBtn from "../components/CustomBtn";
 import TodoList from "../components/TodoList";
-import { TodoContext } from "../context/TodoContext";
+// import { TodoContext } from "../context/TodoContext";
+import { useTodoStore } from "../store/TodoStore";
 // import { TTodo } from "../components/TodoExam";
 // import { axiosAddTodo } from "../axios/todoApi";
 // import { SubmitHandler, useForm } from "react-hook-form";
@@ -20,15 +22,18 @@ const Todo = () => {
   //   formState: { errors },
   // } = useForm<FormInput>();
 
-  useEffect(() => {}, []);
   const [text, setText] = useState("");
-
+  const { getTodos, addTodo, todos, loading } = useTodoStore(state => state);
+  useEffect(() => {
+    getTodos();
+  }, [getTodos]);
+  console.log(todos, "todos");
   // const [todos, dispatch] = useReducer(reducer, getDefaultState());
-  const {
-    todos,
-    // dispatch,
-    todoAddDispatch,
-  } = useContext(TodoContext);
+  // const {
+  //   todos,
+  //   // dispatch,
+  //   todoAddDispatch,
+  // } = useContext(TodoContext);
 
   // const handleAddTodo = (text: string) => {
   //   // console.log("uuid", uuId);
@@ -58,7 +63,8 @@ const Todo = () => {
     //     payload: response?.data,
     //   });
     // }
-    todoAddDispatch(text);
+    // todoAddDispatch(text);
+    addTodo(text);
     setText("");
   };
 
@@ -93,7 +99,9 @@ const Todo = () => {
   //   },
   //   [todos]
   // );
-
+  if (loading) {
+    return <h1>로딩 중입니다</h1>;
+  }
   return (
     <section className="gap-y-2 flex flex-col border-2 rounded-lg w-[380px] h-full px-5 py-10 box-border">
       <h1 className="font-bold text-[#4F4F4F] text-xl h-[28px]">

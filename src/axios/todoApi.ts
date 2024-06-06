@@ -61,6 +61,10 @@ const axiosRequest = async (method: string, url: string, data?: any) => {
 //   }
 // };
 
+export const axiosGetTodo = async () => {
+  return await axiosRequest("get", "/");
+};
+
 // 할 일 추가
 export const axiosAddTodo = async (payload: string) => {
   return await axiosRequest("post", "/", { text: payload });

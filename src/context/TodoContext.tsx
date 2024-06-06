@@ -41,7 +41,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
       try {
         const response = await axios.get(serverUrl, {});
         console.log(response.data, "response");
-        dispatch({ type: "SET_TODO", payload: response.data });
+        // dispatch({ type: "SET_TODO", payload: response.data });
       } catch (error) {
         console.log(error);
       }

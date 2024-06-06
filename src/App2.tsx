@@ -5,7 +5,7 @@
 // import CustomBtn from "./components/CustomBtn";
 // import CustomInput from "./components/CustomInput";
 // import NavBar from "./components/Navbar";
-import TodoProvider from "./context/TodoContext";
+// import TodoProvider from "./context/TodoContext";
 import "./index.css";
 import Todo from "./pages/Todo";
 // import AssignBox from "./pages/AssignPage";
@@ -21,9 +21,9 @@ export default function App() {
     // <></>을 통해 사용
     // 컴포넌트는 무조건 단방향 위에서 아래로 흐른다.
     <div className="flex flex-col gap-5">
-      <TodoProvider>
-        <Todo />
-      </TodoProvider>
+      {/* <TodoProvider> */}
+      <Todo />
+      {/* </TodoProvider> */}
     </div>
   );
 }

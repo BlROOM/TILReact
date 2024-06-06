@@ -19,7 +19,7 @@ const TodoList = ({
 }: // handleCheckTodo,
 // handleDeleteTodo,
 TTodoListProps) => {
-  console.log("render TodoList", todos);
+  // console.log("render TodoList", todos);
   return (
     <ul className="flex flex-col gap-4 mt-4">
       {todos.map(todo => (

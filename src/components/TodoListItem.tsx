@@ -1,9 +1,11 @@
 import CustomCheckBox from "./CustomCheckBox";
 // import { Action } from "../reducers/todoReducer";
 // import React, { useCallback, useMemo } from "react";
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
+import React from "react";
 import { TTodo } from "./TodoExam";
-import { TodoContext } from "../context/TodoContext";
+// import { TodoContext } from "../context/TodoContext";
+import { useTodoStore } from "../store/TodoStore";
 // bg-[rgba(53,56,62)]
 
 type TTodoListItemProps = {
@@ -20,7 +22,8 @@ const TodoListItem = ({
 // handleDeleteTodo,
 TTodoListItemProps) => {
   const { id, text, completed } = todo;
-  const { todoDeleteDispatch, todoToggleDispatch } = useContext(TodoContext);
+  // const { todoDeleteDispatch, todoToggleDispatch } = useContext(TodoContext);
+  const { deleteTodo, toggleTodo } = useTodoStore(state => state);
   // console.log("render todolistitem");
   // const memoHandleCheckTodo = useMemo(() => completed, []);
   // const callbackHandleCheckTodo = useCallback(() => completed, []);
@@ -34,7 +37,8 @@ TTodoListItemProps) => {
       <CustomCheckBox
         checked={completed}
         // onChange={() => dispatch({ type: "TOGGLE_TODO", payload: id })}
-        onChange={() => todoToggleDispatch(id)}
+        // onChange={() => todoToggleDispatch(id)}
+        onChange={() => toggleTodo(id)}
         id={id}
       >
         <span
@@ -48,7 +52,8 @@ TTodoListItemProps) => {
       <button
         type="button"
         // onClick={() => dispatch({ type: "DELETE_TODO", payload: id })}
-        onClick={() => todoDeleteDispatch(id)}
+        // onClick={() => todoDeleteDispatch(id)}
+        onClick={() => deleteTodo(id)}
         className="w-6 h-6 rounded-md border p-1 border-[#4f4f4f] flex items-center align-middle justify-content"
         style={{ backgroundColor: "rgba(53, 56, 62, 0.1)" }}
       >
